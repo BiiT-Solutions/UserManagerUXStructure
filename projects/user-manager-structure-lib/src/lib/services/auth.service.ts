@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {User} from "../models/user";
 import {CreateUserRequest} from "../models/create-user-request";
 import {LoginRequest} from "../models/login-request";
-import {PasswordRequest} from "../models/passwordRequest";
+import {PasswordRequest} from "../models/password-request";
 
 @Injectable({
   providedIn: 'root'
