@@ -26,7 +26,7 @@ export class AuthService {
     return this.httpClient.patch<User>(`${this.rootService.serverUrl}${AuthService.ROOT_PATH}/register`, request);
   }
   public login(request: LoginRequest): Observable<HttpResponse<User>> {
-    return this.httpClient.post<HttpResponse<User>>(`${this.rootService.serverUrl}${AuthService.ROOT_PATH}/public/login`, request);
+    return this.httpClient.post<User>(`${this.rootService.serverUrl}${AuthService.ROOT_PATH}/public/login`, request, {observe: 'response'});
   }
   public changePassword(request: PasswordRequest): Observable<void> {
     return this.httpClient.post<void>(`${this.rootService.serverUrl}${AuthService.ROOT_PATH}/password`, request);
