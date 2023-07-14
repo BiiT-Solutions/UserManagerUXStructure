@@ -13,7 +13,7 @@ import {PasswordRequest} from "../models/password-request";
 export class AuthService {
 
   public static readonly ROOT_PATH: string = '/auth';
-  private static readonly FIRST_TIMER_TIME: number = 1000;
+  private static readonly TOLERANCE: number = 1000 * 60 * 5; // 5 minutes
   private interval: number;
   constructor(private rootService: UserManagerRootService, private httpClient: HttpClient) { }
   public getAll(): Observable<User[]> {
@@ -37,14 +37,24 @@ export class AuthService {
   public deleteByUserName(username: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.rootService.serverUrl}${AuthService.ROOT_PATH}/register/${username}`);
   }
-  public autoRenewToken(token: string, callback: (token: string) => void): void {
+
+  public cancelAutoRenew(): void {
+    clearInterval(this.interval);
+  }
+
+  public autoRenewToken(token: string, expiration: number, callback: (token: string, expiration: number) => void,
+                        tolerance: number = AuthService.TOLERANCE): void {
     if (this.interval != null) {
       clearInterval(this.interval);
       this.interval = null;
     }
-    this.setIntervalRenew(token, AuthService.FIRST_TIMER_TIME, callback);
+    const expirationDate: Date = new Date(expiration);
+    const now: Date = new Date();
+    const expirationTime: number = expirationDate.getTime() - AuthService.TOLERANCE - now.getTime();
+    this.setIntervalRenew(token, expirationTime, callback, tolerance);
   }
-  private setIntervalRenew(token: string, timeout: number, callback: (token: string) => void): void {
+  private setIntervalRenew(token: string, timeout: number, callback: (token: string, expiration: number) => void,
+                           tolerance: number): void {
     this.interval = setInterval((): void => {
       this.renew(token).subscribe(
         (res: HttpResponse<User>) => {
@@ -56,10 +66,10 @@ export class AuthService {
           if (isNaN(expiration)) {
             throw new Error('Server returned invalid expiration time');
           }
-          expiration = expiration - (new Date()).getTime();
-          console.log(`Next token expiration: ${expiration}`);
-          callback(authToken);
-          this.setIntervalRenew(authToken, expiration, callback);
+          expiration = expiration - tolerance - (new Date()).getTime();
+          console.log(`Next token renew on: ${new Date(expiration)}`);
+          callback(authToken, expiration);
+          this.setIntervalRenew(authToken, expiration, callback, tolerance);
         }
       )
     }, timeout)
