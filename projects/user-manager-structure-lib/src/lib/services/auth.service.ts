@@ -61,7 +61,7 @@ export class AuthService {
         {
           next: (res: HttpResponse<User>): void => {
             if (!res) {
-              console.log('Server returned invalid response');
+              console.error('Server returned invalid response');
               return;
             }
               const authToken: string = res.headers.get('authorization');
@@ -88,9 +88,9 @@ export class AuthService {
   }
   public renew(token ?: string): Observable<HttpResponse<User>> {
     return token ?
-      this.httpClient.get<HttpResponse<User>>(
-        `${this.rootService.serverUrl}${AuthService.ROOT_PATH}/jwt/renew`, {headers: {'Authorization': 'Bearer ' + token}})
-      : this.httpClient.get<HttpResponse<User>>(
-        `${this.rootService.serverUrl}${AuthService.ROOT_PATH}/jwt/renew`);
+      this.httpClient.get<User>(
+        `${this.rootService.serverUrl}${AuthService.ROOT_PATH}/jwt/renew`, {headers: {'Authorization': 'Bearer ' + token}, observe: 'response'})
+      : this.httpClient.get<User>(
+        `${this.rootService.serverUrl}${AuthService.ROOT_PATH}/jwt/renew`, {observe: 'response'});
   }
 }
