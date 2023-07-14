@@ -60,6 +60,10 @@ export class AuthService {
       this.renew(token).subscribe(
         {
           next: (res: HttpResponse<User>): void => {
+            if (!res) {
+              console.log('Server returned invalid response');
+              return;
+            }
               const authToken: string = res.headers.get('authorization');
               let expiration: number = Number(res.headers.get('expires'));
               if (!authToken || !expiration) {
