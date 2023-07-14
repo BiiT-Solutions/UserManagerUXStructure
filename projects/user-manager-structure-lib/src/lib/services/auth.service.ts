@@ -52,6 +52,7 @@ export class AuthService {
     const now: Date = new Date();
     const expirationTime: number = expirationDate.getTime() - AuthService.TOLERANCE - now.getTime();
     this.setIntervalRenew(token, expirationTime, callback, tolerance);
+    console.log(`Next token renew on: ${expirationDate}`);
   }
   private setIntervalRenew(token: string, timeout: number, callback: (token: string, expiration: number) => void,
                            tolerance: number): void {
