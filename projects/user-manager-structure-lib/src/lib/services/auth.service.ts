@@ -14,6 +14,7 @@ import {TokenRenewListener} from "./token-renew";
 export class AuthService {
 
   public static readonly ROOT_PATH: string = '/auth';
+  private static readonly MIN_WAIT_TIME: number = 1000;
   private static readonly TOLERANCE: number = 1000 * 60 * 5; // 5 minutes
   private timeoutId: number;
   constructor(private rootService: UserManagerRootService, private httpClient: HttpClient) { }
@@ -61,6 +62,9 @@ export class AuthService {
       console.error(`Timeout should be a number and received '${timeout}'`)
       return;
     }
+    if (timeout < AuthService.MIN_WAIT_TIME) {
+      timeout = AuthService.MIN_WAIT_TIME;
+    }
     this.timeoutId = setTimeout((): void => {
       this.renew(token).subscribe(
         {
@@ -79,7 +83,8 @@ export class AuthService {
               }
               console.log(`Next token renew on: ${new Date(expiration)}`);
               tokenRenewListener.onTokenReceived(authToken, expiration);
-              this.setTimeoutRenew(authToken, expiration, tokenRenewListener, tolerance);
+              const newTimeOut: number = expiration - new Date().getTime() - tolerance;
+              this.setTimeoutRenew(authToken, newTimeOut, tokenRenewListener, tolerance);
 
           },
           error: (err: any): void => {
