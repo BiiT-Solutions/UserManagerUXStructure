@@ -15,7 +15,7 @@ export class AuthService {
 
   public static readonly ROOT_PATH: string = '/auth';
   private static readonly TOLERANCE: number = 1000 * 60 * 5; // 5 minutes
-  private interval: number;
+  private timeoutId: number;
   constructor(private rootService: UserManagerRootService, private httpClient: HttpClient) { }
   public getAll(): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${AuthService.ROOT_PATH}/register`);
@@ -40,28 +40,28 @@ export class AuthService {
   }
 
   public cancelAutoRenew(): void {
-    clearInterval(this.interval);
+    clearTimeout(this.timeoutId);
   }
 
   public autoRenewToken(token: string, expiration: number, tokenRenewListener: TokenRenewListener,
                         tolerance: number = AuthService.TOLERANCE): void {
-    if (this.interval != null) {
-      clearInterval(this.interval);
-      this.interval = null;
+    if (this.timeoutId != null) {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = null;
     }
     const expirationDate: Date = new Date(expiration);
     const now: Date = new Date();
     const expirationTime: number = expirationDate.getTime() - AuthService.TOLERANCE - now.getTime();
-    this.setIntervalRenew(token, expirationTime, tokenRenewListener, tolerance);
+    this.setTimeoutRenew(token, expirationTime, tokenRenewListener, tolerance);
     console.log(`Next token renew on: ${expirationDate}`);
   }
-  private setIntervalRenew(token: string, timeout: number, tokenRenewListener: TokenRenewListener,
+  private setTimeoutRenew(token: string, timeout: number, tokenRenewListener: TokenRenewListener,
                            tolerance: number): void {
     if (isNaN(timeout)) {
       console.error(`Timeout should be a number and received '${timeout}'`)
       return;
     }
-    this.interval = setInterval((): void => {
+    this.timeoutId = setTimeout((): void => {
       this.renew(token).subscribe(
         {
           next: (res: HttpResponse<User>): void => {
@@ -79,12 +79,12 @@ export class AuthService {
               }
               console.log(`Next token renew on: ${new Date(expiration)}`);
               tokenRenewListener.onTokenReceived(authToken, expiration);
-              this.setIntervalRenew(authToken, expiration, tokenRenewListener, tolerance);
+              this.setTimeoutRenew(authToken, expiration, tokenRenewListener, tolerance);
 
           },
           error: (err: any): void => {
             tokenRenewListener.onException(err);
-            clearInterval(this.interval);
+            clearTimeout(this.timeoutId);
           }
         }
       )
