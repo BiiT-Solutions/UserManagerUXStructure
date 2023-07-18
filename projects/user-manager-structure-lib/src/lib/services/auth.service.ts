@@ -56,6 +56,10 @@ export class AuthService {
   }
   private setIntervalRenew(token: string, timeout: number, callback: (token: string, expiration: number) => void,
                            tolerance: number): void {
+    if (isNaN(timeout)) {
+      console.error(`Timeout should be a number and received '${timeout}'`)
+      return;
+    }
     this.interval = setInterval((): void => {
       this.renew(token).subscribe(
         {
