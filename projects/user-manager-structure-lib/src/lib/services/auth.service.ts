@@ -6,6 +6,7 @@ import {User} from "../models/user";
 import {CreateUserRequest} from "../models/create-user-request";
 import {LoginRequest} from "../models/login-request";
 import {PasswordRequest} from "../models/password-request";
+import {TokenRenewListener} from "./token-renew";
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,7 @@ export class AuthService {
     clearInterval(this.interval);
   }
 
-  public autoRenewToken(token: string, expiration: number, callback: (token: string, expiration: number) => void,
+  public autoRenewToken(token: string, expiration: number, tokenRenewListener: TokenRenewListener,
                         tolerance: number = AuthService.TOLERANCE): void {
     if (this.interval != null) {
       clearInterval(this.interval);
@@ -51,10 +52,10 @@ export class AuthService {
     const expirationDate: Date = new Date(expiration);
     const now: Date = new Date();
     const expirationTime: number = expirationDate.getTime() - AuthService.TOLERANCE - now.getTime();
-    this.setIntervalRenew(token, expirationTime, callback, tolerance);
+    this.setIntervalRenew(token, expirationTime, tokenRenewListener, tolerance);
     console.log(`Next token renew on: ${expirationDate}`);
   }
-  private setIntervalRenew(token: string, timeout: number, callback: (token: string, expiration: number) => void,
+  private setIntervalRenew(token: string, timeout: number, tokenRenewListener: TokenRenewListener,
                            tolerance: number): void {
     if (isNaN(timeout)) {
       console.error(`Timeout should be a number and received '${timeout}'`)
@@ -77,12 +78,12 @@ export class AuthService {
                 throw new Error('Server returned invalid expiration time');
               }
               console.log(`Next token renew on: ${new Date(expiration)}`);
-              callback(authToken, expiration);
-              this.setIntervalRenew(authToken, expiration, callback, tolerance);
+              tokenRenewListener.onTokenReceived(authToken, expiration);
+              this.setIntervalRenew(authToken, expiration, tokenRenewListener, tolerance);
 
           },
-          error: (ignored: any): void => {
-            callback(null, null);
+          error: (err: any): void => {
+            tokenRenewListener.onException(err);
             clearInterval(this.interval);
           }
         }
