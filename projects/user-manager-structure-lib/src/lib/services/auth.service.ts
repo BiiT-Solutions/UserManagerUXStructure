@@ -65,14 +65,13 @@ export class AuthService {
               return;
             }
               const authToken: string = res.headers.get('authorization');
-              let expiration: number = Number(res.headers.get('expires'));
+              const expiration: number = Number(res.headers.get('expires'));
               if (!authToken || !expiration) {
                 throw new Error('Server returned invalid response');
               }
               if (isNaN(expiration)) {
                 throw new Error('Server returned invalid expiration time');
               }
-              expiration = expiration - tolerance - (new Date()).getTime();
               console.log(`Next token renew on: ${new Date(expiration)}`);
               callback(authToken, expiration);
               this.setIntervalRenew(authToken, expiration, callback, tolerance);
