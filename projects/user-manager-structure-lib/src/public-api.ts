@@ -22,3 +22,4 @@ export * from './lib/services/user.service';
 export * from './lib/services/user-manager-root.service';
 export * from './lib/services/user-role.service';
 export * from './lib/services/basic-user.service';
+export * from './lib/services/token-renew';
