@@ -1,4 +1,4 @@
-import {ElementDto} from "./element-dto";
+import {ElementDto} from "authorization-services-lib";
 
 export class Application extends ElementDto {
   name: string;

@@ -1,4 +1,4 @@
-import {ElementDto} from "./element-dto";
+import {ElementDto} from "authorization-services-lib";
 
 export class BasicUser extends ElementDto {
   uuid: string;

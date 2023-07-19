@@ -1,4 +1,4 @@
-import {ElementDto} from "./element-dto";
+import {ElementDto} from "authorization-services-lib";
 
 export class Role extends ElementDto {
   name: string;

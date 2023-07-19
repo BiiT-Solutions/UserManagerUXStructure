@@ -1,8 +1,7 @@
-import {ElementDto} from "./element-dto";
 import {Group} from "./group";
 import {Application} from "./application";
-import {User} from "./user";
 import {Role} from "./role";
+import {ElementDto, User} from "authorization-services-lib";
 
 export class UserRole extends ElementDto {
   group: Group;
