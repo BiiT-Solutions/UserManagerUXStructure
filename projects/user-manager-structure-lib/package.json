@@ -3,8 +3,8 @@
   "version": "0.0.23",
   "peerDependencies": {
     "authorization-services-lib": "latest",
-    "@angular/common": "^15.2.0",
-    "@angular/core": "^15.2.0"
+    "@angular/common": "v14-lts",
+    "@angular/core": "v14-lts"
   },
   "scripts": {
     "increase-version": "npm --no-git-tag-version version patch"
