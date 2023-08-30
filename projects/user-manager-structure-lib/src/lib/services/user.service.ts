@@ -12,8 +12,8 @@ export class UserService {
   private static readonly ROOT_PATH: string = '/users'
   constructor(private rootService: UserManagerRootService, private httpClient: HttpClient) { }
 
-  public getAll(): Observable<User> {
-    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}`);
+  public getAll(): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}`);
   }
 
   public update(user: User): Observable<User> {
