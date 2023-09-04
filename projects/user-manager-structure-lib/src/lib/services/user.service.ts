@@ -28,8 +28,8 @@ export class UserService {
     return this.httpClient.put<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/password`, passwordRequest);
   }
 
-  public create(users: User[]): Observable<User[]> {
-    return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/list`, users);
+  public create(users: User): Observable<User> {
+    return this.httpClient.post<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/list`, users);
   }
 
   public getById(id: string): Observable<User> {
