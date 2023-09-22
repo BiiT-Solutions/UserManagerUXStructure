@@ -77,7 +77,7 @@ export class UserService {
   }
 
   public deleteByUserName(username: string): Observable<void> {
-    return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${username}`);
+    return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}`);
   }
 
 
