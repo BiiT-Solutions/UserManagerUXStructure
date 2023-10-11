@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import {RootPath} from "authorization-services-lib";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserManagerRootService {
+export class UserManagerRootService implements RootPath {
 
   private rootUrl: URL = null;
 
@@ -14,6 +15,10 @@ export class UserManagerRootService {
   }
 
   public get serverUrl(): URL {
+    return this.rootUrl;
+  }
+
+  getRootPath(): URL {
     return this.rootUrl;
   }
 }
