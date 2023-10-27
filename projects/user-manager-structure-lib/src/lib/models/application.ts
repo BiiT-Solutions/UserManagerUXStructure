@@ -1,7 +1,6 @@
 import {ElementDto} from "authorization-services-lib";
 
-export class Application extends ElementDto {
-  name: string;
+export class Application extends ElementDto{
   description: string;
 
   public static override clone(from: Application): Application {
@@ -11,7 +10,7 @@ export class Application extends ElementDto {
   }
   public static override copy(from: Application, to: Application): void {
     super.copy(from, to);
-    to.name = from.name;
-    to.description = from.description;
+    from.description = to.description;
   }
+
 }
