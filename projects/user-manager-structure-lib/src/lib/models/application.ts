@@ -1,6 +1,6 @@
 import {ElementDto} from "authorization-services-lib";
 
-export class Application extends ElementDto{
+export class Application extends ElementDto {
   description: string;
 
   public static override clone(from: Application): Application {
