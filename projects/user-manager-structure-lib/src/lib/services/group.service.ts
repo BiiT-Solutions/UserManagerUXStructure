@@ -1,48 +1,67 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {UserManagerRootService} from "./user-manager-root.service";
-import {Group} from "../models/group";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Group} from "../models/group";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupService {
 
-  private static readonly ROOT_PATH: string = '/groups';
-  constructor(private rootService: UserManagerRootService , private httpClient: HttpClient) { }
+  private static readonly ROOT_PATH: string = '/groups'
+  constructor(private rootService: UserManagerRootService, private httpClient: HttpClient) { }
 
-  public getAll(): Observable<Group[]> {
+  getAll(): Observable<Group[]> {
     return this.httpClient.get<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}`);
   }
-  public update(group: Group): Observable<Group> {
+  update(group: Group): Observable<Group> {
     return this.httpClient.put<Group>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}`, group);
   }
-  public create(group: Group): Observable<Group> {
+  create(group: Group): Observable<Group> {
     return this.httpClient.post<Group>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}`, group);
   }
-  public createBunch(group: Group[]): Observable<Group[]> {
-    return this.httpClient.post<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/list`, group);
-  }
-  public getById(id: string): Observable<Group> {
+  getById(id: number): Observable<Group> {
     return this.httpClient.get<Group>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/${id}`);
   }
-  public delete(id: string): Observable<void> {
+  deleteById(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/${id}`);
   }
-  public getHasNoParent(): Observable<Group[]> {
-    return this.httpClient.get<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/no-parent`);
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/count`);
   }
-  public getByName(name: string): Observable<Group> {
-    return this.httpClient.get<Group>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/names/${name}`);
+  delete(group: Group): Observable<void> {
+    return this.httpClient.post<void>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/delete`, group);
   }
-  public deleteByName(name: string): Observable<void> {
-    return this.httpClient.delete<void>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/names/${name}`);
+  getByGroupNameAndApplicationName(groupName: string, applicationName: string): Observable<Group> {
+    return this.httpClient.get<Group>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/${groupName}/applications/${applicationName}`);
   }
-  public getHasParent(): Observable<Group[]> {
+  deleteByGroupNameAndApplicationName(groupName: string, applicationName: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/${groupName}/applications/${applicationName}`);
+  }
+  getAllWithParents(): Observable<Group[]> {
     return this.httpClient.get<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/has-parent`);
   }
-  public countGroups(): Observable<number> {
-    return this.httpClient.get<number>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/count`);
+  createBatch(groups: Group[]): Observable<Group[]> {
+    return this.httpClient.post<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/list`, groups);
+  }
+  getAllWithNoParent(): Observable<Group[]> {
+    return this.httpClient.get<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/no-parent`);
+  }
+  range(from: Date, to: Date): Observable<Group[]> {
+    const params: HttpParams = new HttpParams().set('from', from.toISOString()).set('to', to.toISOString());
+    return this.httpClient.get<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/range`, {params});
+  }
+  getAllCreated(): Observable<Group[]> {
+    return this.httpClient.get<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/user`);
+  }
+  countAllCreated(): Observable<number> {
+    return this.httpClient.get<number>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/user/count`);
+  }
+  getAllCreatedByUser(username: string): Observable<Group[]> {
+    return this.httpClient.get<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/user/${username}`);
+  }
+  countAllCreatedByUser(username: string): Observable<number> {
+    return this.httpClient.get<number>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/user/${username}/count`);
   }
 }

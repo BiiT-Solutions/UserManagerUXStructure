@@ -1,84 +1,98 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {UserManagerRootService} from "./user-manager-root.service";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {User} from "authorization-services-lib";
 import {Observable} from "rxjs";
 import {UpdatePasswordRequest} from "../models/update-password-request";
-import {User} from "authorization-services-lib";
+import {CheckCredentialsRequest} from "../models/check-credentials-request";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
   private static readonly ROOT_PATH: string = '/users'
   constructor(private rootService: UserManagerRootService, private httpClient: HttpClient) { }
-
-  public getAll(): Observable<User[]> {
+  getAll(): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}`);
   }
-
-  public update(user: User): Observable<User> {
+  update(user: User): Observable<User> {
     return this.httpClient.put<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}`, user);
   }
-
-  public updatePassword(username: string, passwordRequest: UpdatePasswordRequest): Observable<User> {
-    return this.httpClient.put<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${username}/password`, passwordRequest);
-  }
-
-  public updateLoggedPassword(passwordRequest: UpdatePasswordRequest): Observable<User> {
-    return this.httpClient.put<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/password`, passwordRequest);
-  }
-
-  public create(user: User): Observable<User> {
+  create(user: User): Observable<User> {
     return this.httpClient.post<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}`, user);
   }
-
-  public createList(users: [User]): Observable<User> {
-    return this.httpClient.post<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/list`, users);
-  }
-
-  public getById(id: string): Observable<User> {
+  getById(id: number): Observable<User> {
     return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${id}`);
   }
-
-  public delete(id: string): Observable<void> {
+  deleteById(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${id}`);
   }
-
-  public getByUsername(username: string): Observable<User> {
-    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}`);
+  updatePassword(username: string, updatePasswordRequest: UpdatePasswordRequest): Observable<User> {
+    return this.httpClient.put<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${username}/password`, updatePasswordRequest);
   }
-
-  public getByUsernameAndApplicationName(username: string, applicationName: string): Observable<User> {
-    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}/applications/${applicationName}`);
+  getAllByAccountExpired(expired: boolean): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/account-expired/${expired}`);
   }
-
-  public getByPhone(phone: string): Observable<User> {
-    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/phones/${phone}`);
-  }
-
-  public getByUUID(uuid: string): Observable<User> {
-    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/uuids/${uuid}`);
-  }
-
-  public getByEnable(enable: boolean): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/enable/${enable}`);
-  }
-
-  public getByEmail(email: string): Observable<User> {
-    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/emails/${email}`);
-  }
-
-  public getByEmailAndApplicationName(email: string, applicationName: string): Observable<User> {
-    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/emails/${email}/applications/${applicationName}`);
-  }
-
-  public countUsers(): Observable<number> {
+  count(): Observable<number> {
     return this.httpClient.get<number>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/count`);
   }
-
-  public deleteByUserName(username: string): Observable<void> {
+  checkCredentials(checkCredentialsRequest: CheckCredentialsRequest): Observable<User> {
+    return this.httpClient.post<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/credentials`, checkCredentialsRequest);
+  }
+  delete(user: User): Observable<void> {
+    return this.httpClient.post<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/delete`, user);
+  }
+  getByEmail(email: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/emails/${email}`);
+  }
+  getByEmailAndApplicationName(email: string, applicationName: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/emails/${email}/applications/${applicationName}`);
+  }
+  getAllByEnabled(enabled: boolean): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/enable/${enabled}`);
+  }
+  createBatch(users: User[]): Observable<User[]> {
+    return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/list`, users);
+  }
+  updateCurrentPassword(updatePasswordRequest: UpdatePasswordRequest): Observable<User> {
+    return this.httpClient.put<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/password`, updatePasswordRequest);
+  }
+  getUserByPhone(phone: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/phones/${phone}`);
+  }
+  checkUserName(username: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/${username}/check`);
+  }
+  range(from: Date, to: Date): Observable<User[]> {
+    const params: HttpParams = new HttpParams().set('from', from.toISOString()).set('to', to.toISOString());
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/range`, {params});
+  }
+  getAllCreated(): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/user`);
+  }
+  countAllCreated(): Observable<number> {
+    return this.httpClient.get<number>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/user/count`);
+  }
+  getAllCreatedByUser(username: string): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/user/${username}`);
+  }
+  countAllCreatedByUser(username: string): Observable<number> {
+    return this.httpClient.get<number>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/user/${username}/count`);
+  }
+  getUserByUsername(username: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}`);
+  }
+  deleteByUserName(username: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}`);
   }
-
-
+  getByUsernameAndApplicationName(username: string, applicationName: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}/applications/${applicationName}`);
+  }
+  getByUsernameAndServiceName(username: string, serviceName: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}/service/${serviceName}`);
+  }
+  getByUUID(uuid: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/uuids/${uuid}`);
+  }
 }

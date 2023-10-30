@@ -1,30 +1,49 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {UserManagerRootService} from "./user-manager-root.service";
-import {Observable} from "rxjs";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {BasicUser} from "../models/basic-user";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasicUserService {
 
-  private static readonly ROOT_PATH: string = '/users/basic';
-
+  private static readonly ROOT_PATH: string = '/users/basic'
   constructor(private rootService: UserManagerRootService, private httpClient: HttpClient) { }
-  public getAll(): Observable<BasicUser[]> {
-    return this.httpClient.get<BasicUser[]>(`${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}`);
+
+  getAll(): Observable<BasicUser[]> {
+    return this.httpClient.get<BasicUser[]>(
+      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}`);
   }
-  public getById(id: string): Observable<BasicUser> {
-    return this.httpClient.get<BasicUser>(`${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/${id}`);
+  getById(id: number): Observable<BasicUser> {
+    return this.httpClient.get<BasicUser>(
+      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/${id}`);
   }
-  public getByUUID(uuid: string): Observable<BasicUser> {
-    return this.httpClient.get<BasicUser>(`${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/uuids/${uuid}`);
+  count(): Observable<number> {
+    return this.httpClient.get<number>(
+      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/count`);
   }
-  public getByUserName(username: string): Observable<BasicUser> {
-    return this.httpClient.get<BasicUser>(`${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/usernames/${username}`);
+  range(from?: Date, to?: Date): Observable<BasicUser[]> {
+    const params: HttpParams = new HttpParams().set('from', from.toISOString()).set('to', to.toISOString());
+    return this.httpClient.get<BasicUser[]>(
+      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/range`, {params});
   }
-  public count(): Observable<number> {
-    return this.httpClient.get<number>(`${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/count`);
+  getAllCreated(): Observable<BasicUser[]> {
+    return this.httpClient.get<BasicUser[]>(
+      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/user`);
+  }
+  countAllCreated(): Observable<number> {
+    return this.httpClient.get<number>(
+      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/user/count`);
+  }
+  getAllCreatedByUser(username: string): Observable<BasicUser[]> {
+    return this.httpClient.get<BasicUser[]>(
+      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/usernames/${username}`);
+  }
+
+  getAllByUUid(uuid: string): Observable<BasicUser> {
+    return this.httpClient.get<BasicUser>(
+      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/uuid/${uuid}`);
   }
 }
