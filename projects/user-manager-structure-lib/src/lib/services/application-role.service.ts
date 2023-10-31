@@ -56,18 +56,18 @@ export class ApplicationRoleService {
 
   getAllCreated(): Observable<ApplicationRole[]> {
     return this.httpClient.get<ApplicationRole[]>(
-      `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/user`);
+      `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/users`);
   }
   countAllCreated(): Observable<number> {
     return this.httpClient.get<number>(
-      `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/user/count`);
+      `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/users/count`);
   }
   getAllCreatedByUser(username: string): Observable<ApplicationRole[]> {
     return this.httpClient.get<ApplicationRole[]>(
-      `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/user/${username}`);
+      `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/users/${username}`);
   }
   countAllCreatedByUser(username: string): Observable<number> {
     return this.httpClient.get<number>(
-      `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/user/${username}/count`);
+      `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/users/${username}/count`);
   }
 }

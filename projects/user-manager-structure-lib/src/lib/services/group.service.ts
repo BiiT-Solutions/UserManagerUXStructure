@@ -53,15 +53,15 @@ export class GroupService {
     return this.httpClient.get<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/range`, {params});
   }
   getAllCreated(): Observable<Group[]> {
-    return this.httpClient.get<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/user`);
+    return this.httpClient.get<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/users`);
   }
   countAllCreated(): Observable<number> {
-    return this.httpClient.get<number>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/user/count`);
+    return this.httpClient.get<number>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/users/count`);
   }
   getAllCreatedByUser(username: string): Observable<Group[]> {
-    return this.httpClient.get<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/user/${username}`);
+    return this.httpClient.get<Group[]>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/users/${username}`);
   }
   countAllCreatedByUser(username: string): Observable<number> {
-    return this.httpClient.get<number>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/user/${username}/count`);
+    return this.httpClient.get<number>(`${this.rootService.serverUrl}${GroupService.ROOT_PATH}/users/${username}/count`);
   }
 }

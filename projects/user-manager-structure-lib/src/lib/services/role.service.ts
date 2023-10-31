@@ -36,22 +36,22 @@ export class RoleService {
     return this.httpClient.post<Role[]>(`${this.rootService.serverUrl}${RoleService.ROOT_PATH}/list`, roles);
   }
   getByName(name: string): Observable<Role> {
-    return this.httpClient.get<Role>(`${this.rootService.serverUrl}${RoleService.ROOT_PATH}/name/${name}`);
+    return this.httpClient.get<Role>(`${this.rootService.serverUrl}${RoleService.ROOT_PATH}/names/${name}`);
   }
   range(from: Date, to: Date): Observable<Role[]> {
     const params: HttpParams = new HttpParams().set('from', from.toISOString()).set('to', to.toISOString());
     return this.httpClient.get<Role[]>(`${this.rootService.serverUrl}${RoleService.ROOT_PATH}/range`, {params});
   }
   getAllCreated(): Observable<Role[]> {
-    return this.httpClient.get<Role[]>(`${this.rootService.serverUrl}${RoleService.ROOT_PATH}/user`);
+    return this.httpClient.get<Role[]>(`${this.rootService.serverUrl}${RoleService.ROOT_PATH}/users`);
   }
   countAllCreated(): Observable<number> {
-    return this.httpClient.get<number>(`${this.rootService.serverUrl}${RoleService.ROOT_PATH}/user/count`);
+    return this.httpClient.get<number>(`${this.rootService.serverUrl}${RoleService.ROOT_PATH}/users/count`);
   }
   getAllCreatedByUser(username: string): Observable<Role[]> {
-    return this.httpClient.get<Role[]>(`${this.rootService.serverUrl}${RoleService.ROOT_PATH}/user/${username}`);
+    return this.httpClient.get<Role[]>(`${this.rootService.serverUrl}${RoleService.ROOT_PATH}/users/${username}`);
   }
   countAllCreatedByUser(username: string): Observable<number> {
-    return this.httpClient.get<number>(`${this.rootService.serverUrl}${RoleService.ROOT_PATH}/user/${username}/count`);
+    return this.httpClient.get<number>(`${this.rootService.serverUrl}${RoleService.ROOT_PATH}/users/${username}/count`);
   }
 }

@@ -32,7 +32,7 @@ export class UserService {
     return this.httpClient.put<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${username}/password`, updatePasswordRequest);
   }
   getAllByAccountExpired(expired: boolean): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/account-expired/${expired}`);
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/accounts-expired/${expired}`);
   }
   count(): Observable<number> {
     return this.httpClient.get<number>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/count`);
@@ -50,7 +50,7 @@ export class UserService {
     return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/emails/${email}/applications/${applicationName}`);
   }
   getAllByEnabled(enabled: boolean): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/enable/${enabled}`);
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/enabled/${enabled}`);
   }
   createBatch(users: User[]): Observable<User[]> {
     return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/list`, users);
@@ -69,16 +69,16 @@ export class UserService {
     return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/range`, {params});
   }
   getAllCreated(): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/user`);
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/users`);
   }
   countAllCreated(): Observable<number> {
-    return this.httpClient.get<number>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/user/count`);
+    return this.httpClient.get<number>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/users/count`);
   }
   getAllCreatedByUser(username: string): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/user/${username}`);
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/users/${username}`);
   }
   countAllCreatedByUser(username: string): Observable<number> {
-    return this.httpClient.get<number>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/user/${username}/count`);
+    return this.httpClient.get<number>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/users/${username}/count`);
   }
   getUserByUsername(username: string): Observable<User> {
     return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}`);
@@ -90,7 +90,7 @@ export class UserService {
     return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}/applications/${applicationName}`);
   }
   getByUsernameAndServiceName(username: string, serviceName: string): Observable<User> {
-    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}/service/${serviceName}`);
+    return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}/services/${serviceName}`);
   }
   getByUUID(uuid: string): Observable<User> {
     return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/uuids/${uuid}`);

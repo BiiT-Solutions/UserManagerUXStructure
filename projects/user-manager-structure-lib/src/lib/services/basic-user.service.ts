@@ -31,11 +31,11 @@ export class BasicUserService {
   }
   getAllCreated(): Observable<BasicUser[]> {
     return this.httpClient.get<BasicUser[]>(
-      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/user`);
+      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/users`);
   }
   countAllCreated(): Observable<number> {
     return this.httpClient.get<number>(
-      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/user/count`);
+      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/users/count`);
   }
   getAllCreatedByUser(username: string): Observable<BasicUser[]> {
     return this.httpClient.get<BasicUser[]>(
@@ -44,6 +44,6 @@ export class BasicUserService {
 
   getAllByUUid(uuid: string): Observable<BasicUser> {
     return this.httpClient.get<BasicUser>(
-      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/uuid/${uuid}`);
+      `${this.rootService.serverUrl}${BasicUserService.ROOT_PATH}/uuids/${uuid}`);
   }
 }
