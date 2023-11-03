@@ -1,5 +1,4 @@
 import {ElementDto} from "authorization-services-lib";
-import {success} from "ng-packagr/lib/utils/log";
 
 export class Role extends ElementDto {
   description: string;
@@ -13,8 +12,8 @@ export class Role extends ElementDto {
   }
   public static override copy(from: Role, to: Role): void {
     super.copy(from, to);
-    from.description = to.description;
-    from.uniqueName = to.uniqueName;
-    from.uniqueId = to.uniqueId;
+    to.description = from.description;
+    to.uniqueName = from.uniqueName;
+    to.uniqueId = from.uniqueId;
   }
 }

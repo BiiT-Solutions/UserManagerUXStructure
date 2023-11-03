@@ -19,13 +19,13 @@ export class BasicUser extends ElementDto {
   }
   public static override copy(from: BasicUser, to: BasicUser): void {
     super.copy(from, to);
-    from.uuid = to.uuid;
-    from.username = to.username;
-    from.name = to.name;
-    from.lastname = to.lastname;
-    from.languageId = to.languageId;
-    from.authorities = to.authorities ? to.authorities.map(GrantedAuthority.clone) : [];
-    from.password = to.password;
-    from.enabled = to.enabled;
+    to.uuid = from.uuid;
+    to.username = from.username;
+    to.name = from.name;
+    to.lastname = from.lastname;
+    to.languageId = from.languageId;
+    to.authorities = from.authorities ? from.authorities.map(GrantedAuthority.clone) : [];
+    to.password = from.password;
+    to.enabled = from.enabled;
   }
 }

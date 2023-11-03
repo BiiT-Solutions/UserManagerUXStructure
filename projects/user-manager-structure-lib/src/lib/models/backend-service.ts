@@ -10,7 +10,7 @@ export class BackendService extends ElementDto {
   }
   public static override copy(from: BackendService, to: BackendService): void {
     super.copy(from, to);
-    from.id = to.id;
-    from.description = to.description;
+    to.id = from.id;
+    to.description = from.description;
   }
 }

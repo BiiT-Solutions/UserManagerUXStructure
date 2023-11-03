@@ -10,7 +10,7 @@ export class Application extends ElementDto {
   }
   public static override copy(from: Application, to: Application): void {
     super.copy(from, to);
-    from.description = to.description;
+    to.description = from.description;
   }
 
 }
