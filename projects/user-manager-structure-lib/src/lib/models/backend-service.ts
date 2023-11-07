@@ -1,7 +1,8 @@
 import {ElementDto} from "authorization-services-lib";
 
 export class BackendService extends ElementDto {
-  override id: string;
+  override id: undefined;
+  name: string;
   description: string;
   public static override clone(from: BackendService): BackendService {
     const to: BackendService = new BackendService();
@@ -10,7 +11,7 @@ export class BackendService extends ElementDto {
   }
   public static override copy(from: BackendService, to: BackendService): void {
     super.copy(from, to);
-    to.id = from.id;
+    to.name = from.name;
     to.description = from.description;
   }
 }
