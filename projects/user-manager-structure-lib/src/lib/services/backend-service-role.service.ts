@@ -35,10 +35,12 @@ export class BackendServiceRoleService {
     return this.httpClient.get<number>(
       `${this.rootService.serverUrl}${BackendServiceRoleService.ROOT_PATH}/count`);
   }
-  delete(payload: BackendServiceRole): Observable<void> {
-    return this.httpClient.post<void>(
-      `${this.rootService.serverUrl}${BackendServiceRoleService.ROOT_PATH}/delete`, payload);
+
+  delete(backendServiceName: string, roleName: string): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${this.rootService.serverUrl}${BackendServiceRoleService.ROOT_PATH}/backend-services/${backendServiceName}/roles/${roleName}`);
   }
+
   createBatch(payload: BackendServiceRole[]): Observable<BackendServiceRole[]> {
     return this.httpClient.post<BackendServiceRole[]>(
       `${this.rootService.serverUrl}${BackendServiceRoleService.ROOT_PATH}/list`, payload);
