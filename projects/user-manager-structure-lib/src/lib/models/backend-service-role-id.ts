@@ -3,7 +3,7 @@ import {BackendService} from "./backend-service";
 
 export class BackendServiceRoleId extends ElementDto {
   override id: undefined;
-  service: BackendService;
+  backendService: BackendService;
   name: string;
 
   public static override clone(from: BackendServiceRoleId): BackendServiceRoleId {
@@ -13,7 +13,7 @@ export class BackendServiceRoleId extends ElementDto {
   }
   public static override copy(from: BackendServiceRoleId, to: BackendServiceRoleId): void {
     super.copy(from, to);
-    to.service = from.service ? BackendService.clone(from.service) : null;
+    to.backendService = from.backendService ? BackendService.clone(from.backendService) : null;
     to.name = from.name;
   }
 }
