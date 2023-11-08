@@ -19,7 +19,7 @@ export class BackendServiceRoleService {
 
   getByBackendServiceName(backendServiceName: string): Observable<BackendServiceRole[]> {
     return this.httpClient.get<BackendServiceRole[]>(
-      `${this.rootService.serverUrl}${BackendServiceRoleService.ROOT_PATH}/${backendServiceName}`
+      `${this.rootService.serverUrl}${BackendServiceRoleService.ROOT_PATH}/backend-services/${backendServiceName}`
     );
   }
 
