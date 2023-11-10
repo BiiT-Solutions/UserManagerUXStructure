@@ -35,6 +35,11 @@ export class ApplicationRoleService {
       `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/delete`, payload);
   }
 
+  deleteByApplicationAndRole(applicationName: string, roleName: string): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/applications/${applicationName}/roles/${roleName}`);
+  }
+
   getByApplicationName(applicationName: string): Observable<ApplicationRole[]> {
     return this.httpClient.get<ApplicationRole[]>(
       `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/applications/${applicationName}`);
