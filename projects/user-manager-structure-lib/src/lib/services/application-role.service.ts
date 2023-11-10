@@ -35,8 +35,8 @@ export class ApplicationRoleService {
       `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/delete`, payload);
   }
 
-  getByApplicationName(applicationName: string): Observable<ApplicationRole> {
-    return this.httpClient.get<ApplicationRole>(
+  getByApplicationName(applicationName: string): Observable<ApplicationRole[]> {
+    return this.httpClient.get<ApplicationRole[]>(
       `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/applications/${applicationName}`);
   }
   createBatch(payload: ApplicationRole[]): Observable<ApplicationRole[]> {
