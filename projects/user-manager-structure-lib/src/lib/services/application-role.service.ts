@@ -16,6 +16,11 @@ export class ApplicationRoleService {
     return this.httpClient.get<ApplicationRole[]>(
       `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}`);
   }
+
+  getByUsername(username: string): Observable<ApplicationRole[]> {
+    return this.httpClient.get<ApplicationRole[]>(
+      `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/users/${username}`);
+  }
   update(payload: ApplicationRole): Observable<ApplicationRole> {
     return this.httpClient.put<ApplicationRole>(
       `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}`, payload);
