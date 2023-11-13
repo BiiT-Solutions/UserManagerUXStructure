@@ -86,6 +86,12 @@ export class UserService {
   deleteByUserName(username: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}`);
   }
+  deleteByUserNameAndApplicationNameAndRoleName(username: string, applicationName: string, roleName: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}/applications/${applicationName}/application-roles/${roleName}`);
+  }
+  assignApplicationNameAndRoleNameToUser(username: string, applicationName: string, roleName: string): Observable<User> {
+    return this.httpClient.post<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}/applications/${applicationName}/application-roles/${roleName}`, null);
+  }
   getByUsernameAndApplicationName(username: string, applicationName: string): Observable<User> {
     return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/usernames/${username}/applications/${applicationName}`);
   }
