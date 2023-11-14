@@ -70,4 +70,9 @@ export class BackendServiceRoleService {
     return this.httpClient.get<BackendServiceRole>(
       `${this.rootService.serverUrl}${BackendServiceRoleService.ROOT_PATH}/users/${username}/groups/${groupName}/applications/${applicationName}`);
   }
+
+  getByApplicationNameAndRoleName(applicationName: string, roleName: string): Observable<BackendServiceRole[]> {
+    return this.httpClient.get<BackendServiceRole[]>(
+      `${this.rootService.serverUrl}${BackendServiceRoleService.ROOT_PATH}/applications/${applicationName}/roles/${roleName}`);
+  }
 }
