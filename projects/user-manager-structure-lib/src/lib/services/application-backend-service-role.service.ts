@@ -24,6 +24,15 @@ export class ApplicationBackendServiceRoleService {
     return this.httpClient.post<ApplicationBackendServiceRole>(
       `${this.rootService.serverUrl}${ApplicationBackendServiceRoleService.ROOT_PATH}`, payload);
   }
+  deleteByApplicationNameAndApplicationRoleNameAndBackendServiceNameAndBackendServiceRoleName(
+    applicationName: string, applicationRoleName: string, backendServiceName: string, backendServiceRoleName: string
+  ): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${this.rootService.serverUrl}${ApplicationBackendServiceRoleService.ROOT_PATH}
+      /applications/${applicationName}/application-roles/${applicationRoleName}
+      /backend-services/${backendServiceName}/backend-service-roles/${backendServiceRoleName}`
+    )
+  }
 
   count(): Observable<number> {
     return this.httpClient.get<number>(
