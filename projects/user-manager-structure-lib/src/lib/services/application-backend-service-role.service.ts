@@ -28,9 +28,7 @@ export class ApplicationBackendServiceRoleService {
     applicationName: string, applicationRoleName: string, backendServiceName: string, backendServiceRoleName: string
   ): Observable<void> {
     return this.httpClient.delete<void>(
-      `${this.rootService.serverUrl}${ApplicationBackendServiceRoleService.ROOT_PATH}
-      /applications/${applicationName}/application-roles/${applicationRoleName}
-      /backend-services/${backendServiceName}/backend-service-roles/${backendServiceRoleName}`
+      `${this.rootService.serverUrl}${ApplicationBackendServiceRoleService.ROOT_PATH}/applications/${applicationName}/application-roles/${applicationRoleName}/backend-services/${backendServiceName}/backend-service-roles/${backendServiceRoleName}`
     )
   }
 
