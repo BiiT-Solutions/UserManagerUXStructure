@@ -29,7 +29,7 @@ export class UserService {
     return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${id}`);
   }
   updatePassword(username: string, updatePasswordRequest: UpdatePasswordRequest): Observable<User> {
-    return this.httpClient.put<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${username}/password`, updatePasswordRequest);
+    return this.httpClient.put<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${username}/passwords`, updatePasswordRequest);
   }
   getAllByAccountExpired(expired: boolean): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/accounts-expired/${expired}`);
@@ -56,7 +56,7 @@ export class UserService {
     return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/list`, users);
   }
   updateCurrentPassword(updatePasswordRequest: UpdatePasswordRequest): Observable<User> {
-    return this.httpClient.put<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/password`, updatePasswordRequest);
+    return this.httpClient.put<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/passwords`, updatePasswordRequest);
   }
   getUserByPhone(phone: string): Observable<User> {
     return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/phones/${phone}`);
