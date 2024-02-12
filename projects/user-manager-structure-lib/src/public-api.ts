@@ -15,6 +15,7 @@ export * from './lib/models/basic-user';
 export * from './lib/models/granted-authority';
 export * from './lib/models/group';
 export * from './lib/models/check-credentials-request';
+export * from './lib/models/user-group';
 export * from './lib/models/update-password-request';
 
 export * from './lib/services/application.service';
@@ -28,5 +29,6 @@ export * from './lib/services/group.service';
 export * from './lib/services/role.service';
 export * from './lib/services/session.service';
 export * from './lib/services/user.service';
+export * from './lib/services/user-group.service';
 export * from './lib/services/user-manager-root.service';
 export * from './lib/services/backend-service.service';
