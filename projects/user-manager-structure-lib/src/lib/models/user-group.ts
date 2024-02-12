@@ -13,7 +13,10 @@ export class UserGroup extends ElementDto {
   }
   public static override copy(from: UserGroup, to: UserGroup): void {
     super.copy(from, to);
+    to.name = from.name;
     to.description = from.description;
+    to.grantedAuthorities = from.grantedAuthorities;
+    to.applicationRoles = from.applicationRoles;
   }
 
 }
