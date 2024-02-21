@@ -48,10 +48,10 @@ export class UserGroupService {
   deleteByName(name: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/name/${name}`);
   }
-  assignApplicationNameAndRoleNameToUserGroup(userGroupName: string, applicationName: string, roleName: string): Observable<UserGroup> {
+  addApplicationRole(userGroupName: string, applicationName: string, roleName: string): Observable<UserGroup> {
     return this.httpClient.post<UserGroup>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/name/${userGroupName}/applications/${applicationName}/application-roles/${roleName}`, null);
   }
-  removeApplicationNameAndRoleNameToUserGroup(userGroupName: string, applicationName: string, roleName: string): Observable<void> {
+  removeApplicationRole(userGroupName: string, applicationName: string, roleName: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/name/${userGroupName}/applications/${applicationName}/application-roles/${roleName}`);
   }
   assignBackendServiceNameAndBackendServiceRoleToUserGroup(userGroupName: string, applicationName: string, roleName: string, backendServiceName: string, backendServiceRoleName: string): Observable<UserGroup> {

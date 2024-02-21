@@ -21,6 +21,12 @@ export class ApplicationRoleService {
     return this.httpClient.get<ApplicationRole[]>(
       `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/users/${username}`);
   }
+
+  getByUserGroupId(id: number): Observable<ApplicationRole[]> {
+    return this.httpClient.get<ApplicationRole[]>(
+      `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}/user-groups/${id}`);
+  }
+
   update(payload: ApplicationRole): Observable<ApplicationRole> {
     return this.httpClient.put<ApplicationRole>(
       `${this.rootService.serverUrl}${ApplicationRoleService.ROOT_PATH}`, payload);
