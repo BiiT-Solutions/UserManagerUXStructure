@@ -101,4 +101,7 @@ export class UserService {
   getByUUID(uuid: string): Observable<User> {
     return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/uuids/${uuid}`);
   }
+  getByUserGroup(userGroupId: number): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/user-group/${userGroupId}`);
+  }
 }
