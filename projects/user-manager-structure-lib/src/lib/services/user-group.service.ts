@@ -45,11 +45,17 @@ export class UserGroupService {
   deleteByName(name: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/name/${name}`);
   }
-  addApplicationRole(userGroupName: string, applicationName: string, roleName: string): Observable<UserGroup> {
+  addApplicationRoleByName(userGroupName: string, applicationName: string, roleName: string): Observable<UserGroup> {
     return this.httpClient.post<UserGroup>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/name/${userGroupName}/applications/${applicationName}/application-roles/${roleName}`, null);
   }
-  removeApplicationRole(userGroupName: string, applicationName: string, roleName: string): Observable<void> {
+  removeApplicationRoleByName(userGroupName: string, applicationName: string, roleName: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/name/${userGroupName}/applications/${applicationName}/application-roles/${roleName}`);
+  }
+  addApplicationRoleById(userGroupId: number, applicationName: string, roleName: string): Observable<UserGroup> {
+    return this.httpClient.post<UserGroup>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/id/${userGroupId}/applications/${applicationName}/application-roles/${roleName}`, null);
+  }
+  removeApplicationRoleById(userGroupId: number, applicationName: string, roleName: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/id/${userGroupId}/applications/${applicationName}/application-roles/${roleName}`);
   }
   assignBackendServiceNameAndBackendServiceRoleToUserGroup(userGroupName: string, applicationName: string, roleName: string, backendServiceName: string, backendServiceRoleName: string): Observable<UserGroup> {
     return this.httpClient.post<UserGroup>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/name/${userGroupName}/applications/${applicationName}/application-roles/${roleName}/backend-services/${backendServiceName}/backend-service-roles/${backendServiceRoleName}`, null);
