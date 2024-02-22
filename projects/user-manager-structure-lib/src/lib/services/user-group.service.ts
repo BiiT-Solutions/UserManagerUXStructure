@@ -21,11 +21,11 @@ export class UserGroupService {
   create(userGroup: UserGroup): Observable<UserGroup> {
     return this.httpClient.post<UserGroup>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}`, userGroup);
   }
+  delete(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/${id}`);
+  }
   getById(id: number): Observable<UserGroup> {
     return this.httpClient.get<UserGroup>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/${id}`);
-  }
-  deleteById(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/${id}`);
   }
   addUsers(id: number, users: User[]): Observable<UserGroup> {
     return this.httpClient.post<UserGroup>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/${id}/users`, users);
@@ -35,9 +35,6 @@ export class UserGroupService {
   }
   count(): Observable<number> {
     return this.httpClient.get<number>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/count`);
-  }
-  delete(userGroup: UserGroup): Observable<void> {
-    return this.httpClient.post<void>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/delete`, userGroup);
   }
   createBatch(userGroups: UserGroup[]): Observable<UserGroup[]> {
     return this.httpClient.post<UserGroup[]>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/list`, userGroups);
