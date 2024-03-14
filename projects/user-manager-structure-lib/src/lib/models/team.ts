@@ -1,26 +1,26 @@
 import {ElementDto} from "authorization-services-lib";
 import {Application} from "./application";
 
-export class Group extends ElementDto {
+export class Team extends ElementDto {
   override id: number;
   name: string;
   description: string;
-  parent: Group;
+  parent: Team;
   application: Application;
   uniqueName: string;
   uniqueId: string;
 
-  public static override clone(from: Group): Group {
-    const to: Group = new Group();
-    Group.copy(from, to);
+  public static override clone(from: Team): Team {
+    const to: Team = new Team();
+    Team.copy(from, to);
     return to;
   }
-  public static override copy(from: Group, to: Group): void {
+  public static override copy(from: Team, to: Team): void {
     super.copy(from, to);
     to.id = from.id;
     to.name = from.name;
     to.description = from.description;
-    to.parent = from.parent ? Group.clone(from.parent) : null;
+    to.parent = from.parent ? Team.clone(from.parent) : null;
     to.application = from.application ? Application.clone(from.application) : null;
     to.uniqueName = from.uniqueName;
     to.uniqueId = from.uniqueId;
