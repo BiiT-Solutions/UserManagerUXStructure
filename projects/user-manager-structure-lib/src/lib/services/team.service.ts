@@ -33,11 +33,11 @@ export class TeamService {
   delete(team: Team): Observable<void> {
     return this.httpClient.post<void>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/delete`, team);
   }
-  getByGroupNameAndApplicationName(teamName: string, applicationName: string): Observable<Team> {
-    return this.httpClient.get<Team>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${teamName}/applications/${applicationName}`);
+  getByGroupNameAndApplicationName(teamName: string, organizationName: string): Observable<Team> {
+    return this.httpClient.get<Team>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${teamName}/organizations/${organizationName}`);
   }
-  deleteByGroupNameAndApplicationName(teamName: string, applicationName: string): Observable<void> {
-    return this.httpClient.delete<void>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${teamName}/applications/${applicationName}`);
+  deleteByGroupNameAndApplicationName(teamName: string, organizationName: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${teamName}/organizations/${organizationName}`);
   }
   getAllWithParents(): Observable<Team[]> {
     return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/has-parent`);
