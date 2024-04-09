@@ -25,6 +25,9 @@ export class UserService {
   getById(id: number): Observable<User> {
     return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${id}`);
   }
+  getByIds(ids: number[]): Observable<User[]> {
+    return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/ids`, ids);
+  }
   deleteById(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${id}`);
   }
