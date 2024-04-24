@@ -48,8 +48,11 @@ export class TeamService {
   getAllWithNoParent(): Observable<Team[]> {
     return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/no-parent`);
   }
-  getAllFromParent(parentId: number): Observable<Team[]> {
+  getAllByParent(parentId: number): Observable<Team[]> {
     return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/parent/${parentId}`);
+  }
+  getAllByOrganization(organizationId: string): Observable<Team[]> {
+    return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/organizations/${organizationId}`);
   }
   range(from: Date, to: Date): Observable<Team[]> {
     const params: HttpParams = new HttpParams().set('from', from.toISOString()).set('to', to.toISOString());
