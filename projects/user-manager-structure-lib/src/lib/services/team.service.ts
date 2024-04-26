@@ -3,6 +3,7 @@ import {UserManagerRootService} from "./user-manager-root.service";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Team} from "../models/team";
+import {User} from "authorization-services-lib";
 
 @Injectable({
   providedIn: 'root'
@@ -58,11 +59,11 @@ export class TeamService {
     const params: HttpParams = new HttpParams().set('from', from.toISOString()).set('to', to.toISOString());
     return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/range`, {params});
   }
-  getAllCreated(): Observable<Team[]> {
-    return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/users`);
+  assignUsers(id: number, users: User[]): Observable<User[]> {
+    return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${id}/users`, users);
   }
-  countAllCreated(): Observable<number> {
-    return this.httpClient.get<number>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/users/count`);
+  unassignUsers(id: number, users: User[]): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${id}/users/remove`, users);
   }
   getAllCreatedByUser(username: string): Observable<Team[]> {
     return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/users/${username}`);
