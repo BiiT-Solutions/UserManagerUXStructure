@@ -63,7 +63,7 @@ export class TeamService {
     return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${id}/users`, users);
   }
   unassignUsers(id: number, users: User[]): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${id}/users/remove`, users);
+    return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${id}/users/remove`, users);
   }
   getAllCreatedByUser(username: string): Observable<Team[]> {
     return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/users/${username}`);
