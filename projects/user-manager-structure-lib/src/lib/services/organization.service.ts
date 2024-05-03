@@ -44,6 +44,10 @@ export class OrganizationService {
     return this.httpClient.get<number>(
       `${this.rootService.serverUrl}${OrganizationService.ROOT_PATH}/count`);
   }
+  getAllByUser(id: number): Observable<Organization[]> {
+    return this.httpClient.get<Organization[]>(
+      `${this.rootService.serverUrl}${OrganizationService.ROOT_PATH}/users/${id}`);
+  }
   getAllCreatedByCurrentUser(): Observable<Organization[]> {
     return this.httpClient.get<Organization[]>(
       `${this.rootService.serverUrl}${OrganizationService.ROOT_PATH}/createdBy`);
