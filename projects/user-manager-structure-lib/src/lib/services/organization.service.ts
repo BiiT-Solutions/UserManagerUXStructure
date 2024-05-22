@@ -32,8 +32,8 @@ export class OrganizationService {
     return this.httpClient.get<Organization>(
       `${this.rootService.serverUrl}${OrganizationService.ROOT_PATH}/${id}`);
   }
-  getByIds(ids: string[]): Observable<Organization> {
-    return this.httpClient.post<Organization>(
+  getByIds(ids: string[]): Observable<Organization[]> {
+    return this.httpClient.post<Organization[]>(
       `${this.rootService.serverUrl}${OrganizationService.ROOT_PATH}/ids`, ids);
   }
   deleteById(id: string): Observable<void> {
