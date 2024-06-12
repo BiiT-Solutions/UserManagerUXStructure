@@ -122,4 +122,12 @@ export class UserService {
   getTeamUsers(teamId: number): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/teams/${teamId}`);
   }
+  checkToken(token: string): Observable<void> {
+    const params: HttpParams = new HttpParams().set('token', token);
+    return this.httpClient.get<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/tokens`, {params: params});
+  }
+  resetPassword(password: string, token: string): Observable<void> {
+    const params: HttpParams = new HttpParams().set('token', token);
+    return this.httpClient.post<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/tokens`, {newPassword: password}, {params: params});
+  }
 }
