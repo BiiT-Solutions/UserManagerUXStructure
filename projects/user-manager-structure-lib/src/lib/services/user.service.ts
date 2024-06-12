@@ -126,8 +126,11 @@ export class UserService {
     const params: HttpParams = new HttpParams().set('token', token);
     return this.httpClient.get<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/tokens`, {params: params});
   }
-  resetPassword(password: string, token: string): Observable<void> {
+  resetPassword(email: string): Observable<void> {
+    return this.httpClient.get<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/emails/${email}/reset-password`);
+  }
+  updatePasswordPublic(password: string, token: string): Observable<void> {
     const params: HttpParams = new HttpParams().set('token', token);
-    return this.httpClient.post<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/tokens`, {newPassword: password}, {params: params});
+    return this.httpClient.post<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/change-password`, {newPassword: password}, {params: params});
   }
 }
