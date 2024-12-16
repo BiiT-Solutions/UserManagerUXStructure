@@ -71,4 +71,7 @@ export class TeamService {
   countAllCreatedByUser(username: string): Observable<number> {
     return this.httpClient.get<number>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/users/${username}/count`);
   }
+  getAllTeamsForAUser(userUUId: string): Observable<Team[]> {
+    return this.httpClient.post<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/users/${userUUId}`, undefined);
+  }
 }
