@@ -72,6 +72,6 @@ export class TeamService {
     return this.httpClient.get<number>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/users/${username}/count`);
   }
   getAllTeamsForAUser(userUUId: string): Observable<Team[]> {
-    return this.httpClient.post<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/users/${userUUId}`, undefined);
+    return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/users/${userUUId}`);
   }
 }
