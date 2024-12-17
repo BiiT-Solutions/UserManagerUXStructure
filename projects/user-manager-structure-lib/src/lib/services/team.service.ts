@@ -55,6 +55,9 @@ export class TeamService {
   getAllByOrganization(organizationId: string): Observable<Team[]> {
     return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/organizations/${organizationId}`);
   }
+  getAllByOrganizationPublic(organizationId: string): Observable<string[]> {
+    return this.httpClient.get<string[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/public/organizations/${organizationId}`);
+  }
   range(from: Date, to: Date): Observable<Team[]> {
     const params: HttpParams = new HttpParams().set('from', from.toISOString()).set('to', to.toISOString());
     return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/range`, {params});
