@@ -5,6 +5,7 @@ import {User} from "authorization-services-lib";
 import {Observable} from "rxjs";
 import {UpdatePasswordRequest} from "../models/update-password-request";
 import {CheckCredentialsRequest} from "../models/check-credentials-request";
+import {SignUpRequest} from "../models/signup-request";
 
 @Injectable({
   providedIn: 'root'
@@ -134,12 +135,6 @@ export class UserService {
     return this.httpClient.post<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/change-password`, {newPassword: password}, {params: params});
   }
   createPublic(firstname: string, lastname: string, username: string, email: string, password: string): Observable<User> {
-    return this.httpClient.post<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/register`, {
-      firstname: firstname,
-      lastname: lastname,
-      username: username,
-      email: email,
-      password: password
-    });
+    return this.httpClient.post<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/register`, SignUpRequest);
   }
 }
