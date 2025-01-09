@@ -19,6 +19,7 @@ export * from './lib/models/team';
 export * from './lib/models/user-group';
 export * from './lib/models/update-password-request';
 export * from './lib/models/signup-request';
+export * from './lib/utils/signup-request-converter';
 
 export * from './lib/services/application.service';
 export * from './lib/services/application-backend-service-role.service';
