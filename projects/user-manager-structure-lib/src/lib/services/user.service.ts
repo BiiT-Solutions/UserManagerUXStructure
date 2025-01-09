@@ -5,6 +5,7 @@ import {User} from "authorization-services-lib";
 import {Observable} from "rxjs";
 import {UpdatePasswordRequest} from "../models/update-password-request";
 import {CheckCredentialsRequest} from "../models/check-credentials-request";
+import {SignUpRequest} from "../models/signup-request";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,15 @@ export class UserService {
   }
   getById(id: number): Observable<User> {
     return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${id}`);
+  }
+  getByIds(ids: number[]): Observable<User[]> {
+    return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/ids`, ids);
+  }
+  getByUuid(uuid: string): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/uuids/${uuid}`);
+  }
+  getByUuids(uuids: string[]): Observable<User[]> {
+    return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/uuids`, uuids);
   }
   deleteById(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/${id}`);
@@ -101,7 +111,44 @@ export class UserService {
   getByUUID(uuid: string): Observable<User> {
     return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/uuids/${uuid}`);
   }
-  getByUserGroup(userGroupId: number): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/user-group/${userGroupId}`);
+  getByUserGroupId(userGroupId: number): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/user-groups/${userGroupId}`);
+  }
+  getByUserGroupName(userGroupName: string): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/user-groups/names/${userGroupName}`);
+  }
+  getOrganizationUsers(organizationName: string): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/organizations/${organizationName}`);
+  }
+  getTeamUsers(teamId: number): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/teams/${teamId}`);
+  }
+  checkToken(token: string): Observable<void> {
+    const params: HttpParams = new HttpParams().set('token', token);
+    return this.httpClient.get<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/tokens`, {params: params});
+  }
+  resetPassword(email: string): Observable<void> {
+    return this.httpClient.get<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/emails/${email}/reset-password`);
+  }
+  updatePasswordPublic(password: string, token: string): Observable<void> {
+    const params: HttpParams = new HttpParams().set('token', token);
+    return this.httpClient.post<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/change-password`, {newPassword: password}, {params: params});
+  }
+
+  signup(signupRequest: SignUpRequest) {
+    return this.httpClient.post<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/register`, signupRequest);
+  }
+
+  /**
+   *  @deprecated Use signup instead
+   */
+  createPublic(firstname: string, lastname: string, username: string, email: string, password: string): Observable<User> {
+    return this.httpClient.post<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/register`, {
+      firstname: firstname,
+      lastname: lastname,
+      username: username,
+      email: email,
+      password: password
+    });
   }
 }

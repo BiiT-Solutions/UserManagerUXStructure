@@ -27,6 +27,9 @@ export class UserGroupService {
   getById(id: number): Observable<UserGroup> {
     return this.httpClient.get<UserGroup>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/${id}`);
   }
+  getByUsername(username: string): Observable<UserGroup[]> {
+    return this.httpClient.get<UserGroup[]>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/username/${username}`);
+  }
   addUsers(id: number, users: User[]): Observable<UserGroup> {
     return this.httpClient.post<UserGroup>(`${this.rootService.serverUrl}${UserGroupService.ROOT_PATH}/${id}/users`, users);
   }
