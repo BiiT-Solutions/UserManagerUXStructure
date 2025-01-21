@@ -72,7 +72,7 @@ export class UserService {
     return this.httpClient.get<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/phones/${phone}`);
   }
   checkUserName(username: string): Observable<void> {
-    return this.httpClient.get<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/${username}/check`);
+    return this.httpClient.get<void>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/public/${username}/available`);
   }
   range(from: Date, to: Date): Observable<User[]> {
     const params: HttpParams = new HttpParams().set('from', from.toISOString()).set('to', to.toISOString());
