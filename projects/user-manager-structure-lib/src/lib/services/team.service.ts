@@ -84,6 +84,10 @@ export class TeamService {
     return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/range`, {params});
   }
 
+  assignUsersByTeamNameAndUserNames(teamName: string, organizationName: string, usernames: String[]): Observable<User[]> {
+    return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/names/${teamName}/organizations/${organizationName}/usernames`, usernames);
+  }
+
   assignUsersByTeamName(teamName: string, organizationName: string, users: User[]): Observable<User[]> {
     return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/names/${teamName}/organizations/${organizationName}/users`, users);
   }
@@ -92,8 +96,12 @@ export class TeamService {
     return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${id}/users`, users);
   }
 
-  unassignUsersByTeamName(teamName: string, organizationName: string, users: User[]): Observable<User[]> {
+  unassignUsersByTeamNameAndUserNames(teamName: string, organizationName: string, users: User[]): Observable<User[]> {
     return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/names/${teamName}/organizations/${organizationName}/users/remove`, users);
+  }
+
+  unassignUsersByTeamName(teamName: string, organizationName: string, usernames: String[]): Observable<User[]> {
+    return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/names/${teamName}/organizations/${organizationName}/usernames/remove`, usernames);
   }
 
   unassignUsers(id: number, users: User[]): Observable<User[]> {
