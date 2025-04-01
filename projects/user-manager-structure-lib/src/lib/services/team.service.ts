@@ -35,10 +35,13 @@ export class TeamService {
     return this.httpClient.post<void>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/delete`, team);
   }
   getByGroupNameAndApplicationName(teamName: string, organizationName: string): Observable<Team> {
-    return this.httpClient.get<Team>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${teamName}/organizations/${organizationName}`);
+    return this.httpClient.get<Team>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/names/${teamName}/organizations/${organizationName}`);
   }
   deleteByGroupNameAndApplicationName(teamName: string, organizationName: string): Observable<void> {
-    return this.httpClient.delete<void>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${teamName}/organizations/${organizationName}`);
+    return this.httpClient.delete<void>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/names/${teamName}/organizations/${organizationName}`);
+  }
+  checkTeamName(teamName: string, organizationName: string): Observable<void> {
+    return this.httpClient.get<void>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}}/names/${teamName}/organizations/${organizationName}/check`);
   }
   getAllWithParents(): Observable<Team[]> {
     return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/has-parent`);
@@ -62,8 +65,14 @@ export class TeamService {
     const params: HttpParams = new HttpParams().set('from', from.toISOString()).set('to', to.toISOString());
     return this.httpClient.get<Team[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/range`, {params});
   }
+  assignUsersByTeamName(teamName: string, organizationName: string, users: User[]): Observable<User[]> {
+    return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/names/${teamName}/organizations/${organizationName}/users`, users);
+  }
   assignUsers(id: number, users: User[]): Observable<User[]> {
     return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${id}/users`, users);
+  }
+  unassignUsersByTeamName(teamName: string, organizationName: string, users: User[]): Observable<User[]> {
+    return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/names/${teamName}/organizations/${organizationName}/users/remove`, users);
   }
   unassignUsers(id: number, users: User[]): Observable<User[]> {
     return this.httpClient.post<User[]>(`${this.rootService.serverUrl}${TeamService.ROOT_PATH}/${id}/users/remove`, users);
