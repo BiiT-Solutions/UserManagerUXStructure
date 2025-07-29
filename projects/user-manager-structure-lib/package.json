@@ -1,6 +1,6 @@
 {
   "name": "user-manager-structure-lib",
-  "version": "0.0.144",
+  "version": "0.0.145",
   "peerDependencies": {
     "authorization-services-lib": "latest",
     "@angular/common": "v15-lts",
