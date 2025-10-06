@@ -25,6 +25,10 @@ export class UserService {
     return this.httpClient.put<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}`, user);
   }
 
+  updateOwn(user: User): Observable<User> {
+    return this.httpClient.patch<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}/own`, user);
+  }
+
   create(user: User): Observable<User> {
     return this.httpClient.post<User>(`${this.rootService.serverUrl}${UserService.ROOT_PATH}`, user);
   }
