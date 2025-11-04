@@ -40,3 +40,22 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Angular generated files
+package-lock.json
+
+# Storybook generated files
+documentation.json
+
+/src/assets/i18n/biit-ui/
+
+/src/assets/i18n/biit-ui/filter
+/src/assets/i18n/biit-ui/login
+/src/assets/i18n/biit-ui/table
+/src/assets/i18n/biit-ui/inputs
+/src/assets/i18n/biit-ui/info
+/src/assets/i18n/biit-ui/utils
+
+/src/assets/i18n/biit-ui/chart
+/src/assets/i18n/biit-ui/login-welcome
+.vscode
