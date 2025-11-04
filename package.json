@@ -20,7 +20,7 @@
     "@angular/platform-browser": "v15-lts",
     "@angular/platform-browser-dynamic": "v15-lts",
     "@angular/router": "v15-lts",
-    "@biit-solutions/authorization-services-lib": "latest",
+    "@biit-solutions/authorization-services": "latest",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
