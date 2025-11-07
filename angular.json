@@ -3,23 +3,23 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "user-manager-structure-lib": {
+    "user-manager-structure": {
       "projectType": "library",
-      "root": "projects/user-manager-structure-lib",
-      "sourceRoot": "projects/user-manager-structure-lib/src",
+      "root": "projects/user-manager-structure",
+      "sourceRoot": "projects/user-manager-structure/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/user-manager-structure-lib/ng-package.json"
+            "project": "projects/user-manager-structure/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/user-manager-structure-lib/tsconfig.lib.prod.json"
+              "tsConfig": "projects/user-manager-structure/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/user-manager-structure-lib/tsconfig.lib.json"
+              "tsConfig": "projects/user-manager-structure/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -27,7 +27,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/user-manager-structure-lib/tsconfig.spec.json",
+            "tsConfig": "projects/user-manager-structure/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"

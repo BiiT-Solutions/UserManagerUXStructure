@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/user-manager-structure-lib",
+  "dest": "../../dist/user-manager-structure",
   "lib": {
     "entryFile": "src/public-api.ts"
   }

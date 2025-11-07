@@ -26,8 +26,8 @@
       "dom"
     ],
     "paths": {
-      "user-manager-structure-lib": [
-        "dist/user-manager-structure-lib"
+      "user-manager-structure": [
+        "dist/user-manager-structure"
       ]
     }
   },

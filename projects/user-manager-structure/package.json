@@ -1,5 +1,5 @@
 {
-  "name": "user-manager-structure-lib",
+  "name": "user-manager-structure",
   "version": "0.0.149",
   "peerDependencies": {
     "authorization-services-lib": "latest",

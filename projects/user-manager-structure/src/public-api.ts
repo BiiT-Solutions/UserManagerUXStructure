@@ -1,5 +1,5 @@
 /*
- * Public API Surface of user-manager-structure-lib
+ * Public API Surface of user-manager-structure
  */
 
 export * from './lib/models/application';
