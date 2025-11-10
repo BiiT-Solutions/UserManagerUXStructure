@@ -22,7 +22,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build appointment-center-structure
+        run: npm run build
+
       - name: Set login
+        working-directory: dist/user-manager-structure
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         run: |

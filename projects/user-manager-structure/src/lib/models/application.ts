@@ -1,4 +1,4 @@
-import {ElementDto} from "authorization-services-lib";
+import {ElementDto} from '@biit-solutions/authorization-services';
 
 export class Application extends ElementDto {
   description: string;

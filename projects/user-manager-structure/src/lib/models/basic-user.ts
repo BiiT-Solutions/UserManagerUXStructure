@@ -1,4 +1,4 @@
-import {ElementDto} from "authorization-services-lib";
+import {ElementDto} from '@biit-solutions/authorization-services';
 import {GrantedAuthority} from "./granted-authority";
 
 export class BasicUser extends ElementDto {

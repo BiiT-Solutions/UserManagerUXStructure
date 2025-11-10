@@ -1,4 +1,4 @@
-import {ElementDto} from "authorization-services-lib";
+import {ElementDto} from '@biit-solutions/authorization-services';
 
 export class BackendService extends ElementDto {
   override id: undefined;

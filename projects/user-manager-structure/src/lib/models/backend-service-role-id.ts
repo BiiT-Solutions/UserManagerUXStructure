@@ -1,4 +1,4 @@
-import {ElementDto} from "authorization-services-lib";
+import {ElementDto} from '@biit-solutions/authorization-services';
 import {BackendService} from "./backend-service";
 
 export class BackendServiceRoleId extends ElementDto {

@@ -3,7 +3,7 @@ import {UserManagerRootService} from "./user-manager-root.service";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Team} from "../models/team";
-import {User} from "authorization-services-lib";
+import {User} from '@biit-solutions/authorization-services';
 
 @Injectable({
   providedIn: 'root'

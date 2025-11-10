@@ -2,7 +2,7 @@
   "name": "user-manager-structure",
   "version": "0.0.151",
   "peerDependencies": {
-    "authorization-services-lib": "latest",
+    "@biit-solutions/authorization-services": "latest",
     "@angular/common": "v15-lts",
     "@angular/core": "v15-lts"
   },

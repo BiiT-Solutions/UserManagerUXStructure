@@ -1,4 +1,4 @@
-import {ElementDto} from "authorization-services-lib";
+import {ElementDto} from '@biit-solutions/authorization-services';
 import {ApplicationRoleId} from "./application-role-id";
 
 export class ApplicationRole extends ElementDto{

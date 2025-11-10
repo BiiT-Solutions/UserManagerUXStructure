@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {UserManagerRootService} from "./user-manager-root.service";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {User} from "authorization-services-lib";
+import {User} from '@biit-solutions/authorization-services';
 import {Observable} from "rxjs";
 import {UserGroup} from "../models/user-group";
 
