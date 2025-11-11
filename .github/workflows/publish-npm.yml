@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build appointment-center-structure
+      - name: Build user-manager-structure
         run: npm run build
 
       - name: Set login
